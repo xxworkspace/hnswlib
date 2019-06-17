@@ -152,7 +152,7 @@ namespace hnswlib {
     }
 
     std::priority_queue<std::pair<dist_t, tableint>, std::vector<std::pair<dist_t, tableint>>, CompareByFirst>
-      searchBaseLayer(tableint enterpoint_id, void *data_point, int layer) {
+      searchBaseLayer(tableint enterpoint_id,const void *data_point, int layer) {
       VisitedList *vl = visited_list_pool_->getFreeVisitedList();
       vl_type *visited_array = vl->mass;
       vl_type visited_array_tag = vl->curV;
@@ -349,7 +349,7 @@ namespace hnswlib {
       return (linklistsizeint *)(linkLists_[internal_id] + (level - 1) * size_links_per_element_);
     };
 
-    void mutuallyConnectNewElement(void *data_point, tableint cur_c,
+    void mutuallyConnectNewElement(const void *data_point, tableint cur_c,
       std::priority_queue<std::pair<dist_t, tableint>, std::vector<std::pair<dist_t, tableint>>, CompareByFirst> top_candidates,
       int level) {
 
@@ -461,7 +461,7 @@ namespace hnswlib {
     }
 
 
-    std::priority_queue<std::pair<dist_t, tableint>> searchKnnInternal(void *query_data, int k) {
+    std::priority_queue<std::pair<dist_t, tableint>> searchKnnInternal(const void *query_data, int k) {
       tableint currObj = enterpoint_node_;
       dist_t curdist = fstdistfunc_(query_data, getDataByInternalId(enterpoint_node_), dist_func_param_);
 
@@ -727,12 +727,12 @@ namespace hnswlib {
       return data;
     }
 
-    void addPoint(void *data_point, labeltype label)
+    void addPoint(const void *data_point, labeltype label)
     {
       addPoint(data_point, label, -1);
     }
 
-    tableint addPoint(void *data_point, labeltype label, int level) {
+    tableint addPoint(const void *data_point, labeltype label, int level) {
 
       tableint cur_c = 0;
       {
