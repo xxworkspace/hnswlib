@@ -28,7 +28,7 @@
 #include <string.h>
 
 namespace hnswlib {
-    typedef size_t labeltype;
+    typedef unsigned long long labeltype;
 
     template<typename T>
     static void writeBinaryPOD(std::ostream &out, const T &podRef) {
@@ -40,9 +40,20 @@ namespace hnswlib {
         in.read((char *) &podRef, sizeof(T));
     }
 
+    template<typename T>
+    static void writeBinaryPOD(char* out,const T &podRef,size_t& pos){
+        memcpy(&out[pos],&podRef,sizeof(T));
+		pos += sizeof(T);
+    }
+
+	template<typename T>
+    static void readBinaryPOD(const char* in,T& podRef,size_t& pos){
+        memcpy((char*)&podRef,&in[pos],sizeof(T));
+        pos += sizeof(T);
+	}
+
     template<typename MTYPE>
     using DISTFUNC = MTYPE(*)(const void *, const void *, const void *);
-
 
     template<typename MTYPE>
     class SpaceInterface {
