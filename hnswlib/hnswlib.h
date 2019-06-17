@@ -24,7 +24,7 @@
 #endif
 
 #include <queue>
-
+#include <iostream>
 #include <string.h>
 
 namespace hnswlib {
