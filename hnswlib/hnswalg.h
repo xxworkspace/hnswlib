@@ -498,8 +498,8 @@ namespace hnswlib {
     };
 
     void saveIndex(std::vector<char>& output) {
-      size_t pos = 0;
-      size_t size = 13 * 8 + cur_element_count * size_data_per_element_;
+      uint64_t pos = 0;
+      uint64_t size = 13 * 8 + cur_element_count * size_data_per_element_;
       for (size_t i = 0; i < cur_element_count; i++) {
         unsigned int linkListSize = element_levels_[i] > 0 ? size_links_per_element_ * element_levels_[i] : 0;
         size += sizeof(linkListSize);
@@ -567,7 +567,7 @@ namespace hnswlib {
     }
 
     void loadIndex(const std::vector<char> input) {
-      size_t pos = 0;
+      uint64_t pos = 0;
       readBinaryPOD(&input[0], offsetLevel0_, pos);
       readBinaryPOD(&input[0], max_elements_, pos);
       readBinaryPOD(&input[0], cur_element_count, pos);
